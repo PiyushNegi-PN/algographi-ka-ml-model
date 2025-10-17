@@ -120,10 +120,10 @@ const GraphVisualizer: React.FC = () => {
         d3.select(event.currentTarget)
           .transition()
           .duration(500)
-          .attr("transform", translate(0, -20))
+          .attr("transform", "translate(0,-20)")
           .transition()
           .duration(500)
-          .attr("transform", translate(0, 0))
+          .attr("transform", "translate(0,0)")
           .on("end", () => {
             d.fx = null;
             d.fy = null;
@@ -162,7 +162,7 @@ const GraphVisualizer: React.FC = () => {
       .attr("fill", "var(--text-color)")
       .style("font-weight", "bold");
 
-    // Tooltips with BFS details
+    // Tooltips
     node.append("title").text((d) => {
       const state = steps[stepIndex].state;
       const level = state.level?.[d.id];
@@ -175,23 +175,23 @@ const GraphVisualizer: React.FC = () => {
 
     // Tick update
     simulation.on("tick", () => {
-  d3.select(svgRef.current)
-    .selectAll<SVGLineElement, any>(".links line")
-    .attr("x1", (d) => (d.source as Node).x!)
-    .attr("y1", (d) => (d.source as Node).y!)
-    .attr("x2", (d) => (d.target as Node).x!)
-    .attr("y2", (d) => (d.target as Node).y!);
+      d3.select(svgRef.current)
+        .selectAll<SVGLineElement, any>(".links line")
+        .attr("x1", (d) => (d.source as Node).x!)
+        .attr("y1", (d) => (d.source as Node).y!)
+        .attr("x2", (d) => (d.target as Node).x!)
+        .attr("y2", (d) => (d.target as Node).y!);
 
-  d3.select(svgRef.current)
-    .selectAll<SVGCircleElement, any>(".nodes circle")
-    .attr("cx", (d) => d.x!)
-    .attr("cy", (d) => d.y!);
+      d3.select(svgRef.current)
+        .selectAll<SVGCircleElement, any>(".nodes circle")
+        .attr("cx", (d) => d.x!)
+        .attr("cy", (d) => d.y!);
 
-  d3.select(svgRef.current)
-    .selectAll<SVGTextElement, any>(".labels text")
-    .attr("x", (d) => d.x!)
-    .attr("y", (d) => d.y!);
-});
+      d3.select(svgRef.current)
+        .selectAll<SVGTextElement, any>(".labels text")
+        .attr("x", (d) => d.x!)
+        .attr("y", (d) => d.y!);
+    });
 
     // Speak explanation
     speak(steps[stepIndex].actions[explanationLevel]);
@@ -218,9 +218,7 @@ const GraphVisualizer: React.FC = () => {
         {/* Left Panel */}
         <div className="left-panel">
           <div className="graph-controls">
-            <button
-              onClick={() => setStepIndex((prev) => Math.max(prev - 1, 0))}
-            >
+            <button onClick={() => setStepIndex((prev) => Math.max(prev - 1, 0))}>
               ⏮ Prev
             </button>
             <button
@@ -240,30 +238,35 @@ const GraphVisualizer: React.FC = () => {
           {/* Graph */}
           <svg ref={svgRef} width={600} height={400}></svg>
 
-   
-
           {/* State Display */}
           <div className="state-panel card">
             <h3>BFS State (Step {stepIndex + 1})</h3>
-            <p><strong>Queue:</strong> {step.state.queue.join(", ") || "Empty"}</p>
-            <p><strong>Visited:</strong> {step.state.visited.join(", ") || "None"}</p>
+            <p>
+              <strong>Queue:</strong> {step.state.queue.join(", ") || "Empty"}
+            </p>
+            <p>
+              <strong>Visited:</strong> {step.state.visited.join(", ") || "None"}
+            </p>
             {step.state.predecessor && (
               <>
-                <p><strong>Predecessor:</strong></p>
-<ul className="predecessor-list">
-  {Object.entries(step.state.predecessor).map(([k, v]) => (
-    <li key={k}>
-      <span className="key">{k} ←</span>
-      <span className="value">{v || "null"}</span>
-    </li>
-  ))}
-</ul>
-
+                <p>
+                  <strong>Predecessor:</strong>
+                </p>
+                <ul className="predecessor-list">
+                  {Object.entries(step.state.predecessor).map(([k, v]) => (
+                    <li key={k}>
+                      <span className="key">{k} ←</span>
+                      <span className="value">{v || "null"}</span>
+                    </li>
+                  ))}
+                </ul>
               </>
             )}
             {step.state.level && (
               <>
-                <p><strong>Level:</strong></p>
+                <p>
+                  <strong>Level:</strong>
+                </p>
                 <ul>
                   {Object.entries(step.state.level).map(([k, v]) => (
                     <li key={k}>
@@ -274,7 +277,9 @@ const GraphVisualizer: React.FC = () => {
               </>
             )}
             {step.state.order && (
-              <p><strong>Order:</strong> {step.state.order.join(" → ")}</p>
+              <p>
+                <strong>Order:</strong> {step.state.order.join(" → ")}
+              </p>
             )}
           </div>
 
@@ -287,7 +292,8 @@ const GraphVisualizer: React.FC = () => {
             </p>
             {step.next_suggestion && (
               <p className="ai-suggestion small-card">
-                💡 Next node to process: <strong>{step.next_suggestion}</strong>
+                💡 Next node to process:{" "}
+                <strong>{step.next_suggestion}</strong>
               </p>
             )}
           </div>
@@ -351,11 +357,11 @@ const GraphVisualizer: React.FC = () => {
         <ol>
           {steps.slice(0, stepIndex + 1).map((st, idx) => (
             <li key={idx}>
-  <strong>Step {idx + 1}:</strong> {st.actions[explanationLevel].replace("🔹", "").trim()} <br />
-  <em>Queue:</em> [{st.state.queue.join(", ") || "empty"}] |
-  <em> Visited:</em> [{st.state.visited.join(", ") || "none"}]
-</li>
-
+              <strong>Step {idx + 1}:</strong>{" "}
+              {st.actions[explanationLevel].replace("🔹", "").trim()} <br />
+              <em>Queue:</em> [{st.state.queue.join(", ") || "empty"}] |{" "}
+              <em>Visited:</em> [{st.state.visited.join(", ") || "none"}]
+            </li>
           ))}
         </ol>
       </div>

@@ -140,12 +140,12 @@ const LinearSearchVisualizer: React.FC = () => {
       .style("font-weight", "bold")
       .style("font-size", "12px");
 
-    // Add target indicator
+    // Add target indicator (FIXED)
     container
       .append("g")
       .attr("class", "target-indicator")
       .append("text")
-      .text(Target: ${target})
+      .text(`Target: ${target}`)
       .attr("x", width / 2)
       .attr("y", 30)
       .attr("text-anchor", "middle")
@@ -161,8 +161,11 @@ const LinearSearchVisualizer: React.FC = () => {
         .append("g")
         .attr("class", "comparison-arrow")
         .append("path")
-        .attr("d", `M ${currentElement.x + currentElement.width / 2} ${currentElement.y - 20} 
-                   L ${currentElement.x + currentElement.width / 2} ${currentElement.y - 40}`)
+        .attr(
+          "d",
+          `M ${currentElement.x + currentElement.width / 2} ${currentElement.y - 20} 
+           L ${currentElement.x + currentElement.width / 2} ${currentElement.y - 40}`
+        )
         .attr("stroke", "var(--ai-color)")
         .attr("stroke-width", 3)
         .attr("fill", "none")
@@ -170,7 +173,8 @@ const LinearSearchVisualizer: React.FC = () => {
 
       // Add arrowhead marker
       const defs = svg.append("defs");
-      defs.append("marker")
+      defs
+        .append("marker")
         .attr("id", "arrowhead")
         .attr("viewBox", "0 -5 10 10")
         .attr("refX", 5)
@@ -183,15 +187,18 @@ const LinearSearchVisualizer: React.FC = () => {
         .attr("fill", "var(--ai-color)");
     }
 
-    // Tooltips
+    // Tooltips (FIXED template literal)
     bars.append("title").text((d: ArrayElement) => {
       const currentStep = steps[stepIndex];
-      const status = d.index === currentStep.state.current_index 
-        ? (currentStep.state.found ? "Found! ✅" : "Currently checking 🔍")
-        : d.index < currentStep.state.current_index 
-        ? "Already checked ❌" 
-        : "Not yet checked ⏳";
-      return Index ${d.index}: ${d.value}\nStatus: ${status};
+      const status =
+        d.index === currentStep.state.current_index
+          ? currentStep.state.found
+            ? "Found! ✅"
+            : "Currently checking 🔍"
+          : d.index < currentStep.state.current_index
+          ? "Already checked ❌"
+          : "Not yet checked ⏳";
+      return `Index ${d.index}: ${d.value}\nStatus: ${status}`;
     });
 
     // Speak explanation
@@ -201,7 +208,7 @@ const LinearSearchVisualizer: React.FC = () => {
   const step = steps[stepIndex];
 
   return (
-    <div className={  `linear-search-outer ${theme}`}>
+    <div className={`linear-search-outer ${theme}`}>
       {/* Header */}
       <div className="linear-search-header">
         <h2 className="title">Linear Search Visualizer</h2>
@@ -219,9 +226,7 @@ const LinearSearchVisualizer: React.FC = () => {
         {/* Left Panel */}
         <div className="left-panel">
           <div className="linear-search-controls">
-            <button
-              onClick={() => setStepIndex((prev) => Math.max(prev - 1, 0))}
-            >
+            <button onClick={() => setStepIndex((prev) => Math.max(prev - 1, 0))}>
               ⏮ Prev
             </button>
             <button
@@ -232,7 +237,9 @@ const LinearSearchVisualizer: React.FC = () => {
               ⏭ Next
             </button>
             <button
-              onClick={() => setExplanationLevel((prev) => (prev === 0 ? 1 : 0))}
+              onClick={() =>
+                setExplanationLevel((prev) => (prev === 0 ? 1 : 0))
+              }
             >
               📘 {explanationLevel === 0 ? "Beginner" : "Advanced"}
             </button>
@@ -244,21 +251,31 @@ const LinearSearchVisualizer: React.FC = () => {
           {/* State Display */}
           <div className="state-panel card">
             <h3>Linear Search State (Step {stepIndex + 1})</h3>
-            <p><strong>Current Index:</strong> {step.state.current_index}</p>
-            <p><strong>Current Value:</strong> {array[step.state.current_index]}</p>
-            <p><strong>Target:</strong> {target}</p>
-            <p><strong>Found:</strong> {step.state.found ? "Yes ✅" : "No ❌"}</p>
-            <p><strong>Array:</strong> [{array.join(", ")}]</p>
+            <p>
+              <strong>Current Index:</strong> {step.state.current_index}
+            </p>
+            <p>
+              <strong>Current Value:</strong>{" "}
+              {array[step.state.current_index]}
+            </p>
+            <p>
+              <strong>Target:</strong> {target}
+            </p>
+            <p>
+              <strong>Found:</strong> {step.state.found ? "Yes ✅" : "No ❌"}
+            </p>
+            <p>
+              <strong>Array:</strong> [{array.join(", ")}]
+            </p>
           </div>
 
           {/* Explanation */}
           <div className="explanation">
             <p>{step.actions[explanationLevel]}</p>
             <p className="extra-info">
-              Current Index: {step.state.current_index} | 
-              Current Value: {array[step.state.current_index]} | 
-              Target: {target} | 
-              Found: {step.state.found ? "Yes" : "No"}
+              Current Index: {step.state.current_index} | Current Value:{" "}
+              {array[step.state.current_index]} | Target: {target} | Found:{" "}
+              {step.state.found ? "Yes" : "No"}
             </p>
             {step.next_suggestion !== null && (
               <p className="ai-suggestion small-card">
@@ -289,14 +306,28 @@ const LinearSearchVisualizer: React.FC = () => {
             <svg width={400} height={250}>
               <line x1={40} y1={20} x2={40} y2={220} stroke="gray" strokeWidth={1} />
               <line x1={40} y1={220} x2={380} y2={220} stroke="gray" strokeWidth={1} />
-              <text x={10} y={130} transform="rotate(-90,10,130)" fill="var(--text-color)" fontSize={12}>
+              <text
+                x={10}
+                y={130}
+                transform="rotate(-90,10,130)"
+                fill="var(--text-color)"
+                fontSize={12}
+              >
                 Time
               </text>
-              <text x={210} y={240} textAnchor="middle" fill="var(--text-color)" fontSize={12}>
+              <text
+                x={210}
+                y={240}
+                textAnchor="middle"
+                fill="var(--text-color)"
+                fontSize={12}
+              >
                 Input Size (n)
               </text>
               <line x1={40} y1={220} x2={380} y2={60} stroke="steelblue" strokeWidth={2} />
-              <text x={300} y={80} fill="steelblue" fontSize={12}>O(n)</text>
+              <text x={300} y={80} fill="steelblue" fontSize={12}>
+                O(n)
+              </text>
             </svg>
           </div>
 
@@ -305,14 +336,28 @@ const LinearSearchVisualizer: React.FC = () => {
             <svg width={400} height={250}>
               <line x1={40} y1={20} x2={40} y2={220} stroke="gray" strokeWidth={1} />
               <line x1={40} y1={220} x2={380} y2={220} stroke="gray" strokeWidth={1} />
-              <text x={10} y={130} transform="rotate(-90,10,130)" fill="var(--text-color)" fontSize={12}>
+              <text
+                x={10}
+                y={130}
+                transform="rotate(-90,10,130)"
+                fill="var(--text-color)"
+                fontSize={12}
+              >
                 Space
               </text>
-              <text x={210} y={240} textAnchor="middle" fill="var(--text-color)" fontSize={12}>
+              <text
+                x={210}
+                y={240}
+                textAnchor="middle"
+                fill="var(--text-color)"
+                fontSize={12}
+              >
                 Input Size (n)
               </text>
               <line x1={40} y1={200} x2={380} y2={200} stroke="orange" strokeWidth={2} />
-              <text x={300} y={220} fill="orange" fontSize={12}>O(1)</text>
+              <text x={300} y={220} fill="orange" fontSize={12}>
+                O(1)
+              </text>
             </svg>
           </div>
         </div>
@@ -324,10 +369,11 @@ const LinearSearchVisualizer: React.FC = () => {
         <ol>
           {steps.slice(0, stepIndex + 1).map((st, idx) => (
             <li key={idx}>
-              <strong>Step {idx + 1}:</strong> {st.actions[explanationLevel].replace("🔹", "").trim()} <br />
-              <em>Index:</em> {st.state.current_index} |
-              <em> Value:</em> {array[st.state.current_index]} |
-              <em> Found:</em> {st.state.found ? "Yes" : "No"}
+              <strong>Step {idx + 1}:</strong>{" "}
+              {st.actions[explanationLevel].replace("🔹", "").trim()} <br />
+              <em>Index:</em> {st.state.current_index} | <em>Value:</em>{" "}
+              {array[st.state.current_index]} | <em>Found:</em>{" "}
+              {st.state.found ? "Yes" : "No"}
             </li>
           ))}
         </ol>
