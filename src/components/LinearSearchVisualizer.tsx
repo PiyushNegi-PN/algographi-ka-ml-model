@@ -201,7 +201,7 @@ const LinearSearchVisualizer: React.FC = () => {
   const step = steps[stepIndex];
 
   return (
-    <div className={linear-search-outer ${theme}}>
+    <div className={  `linear-search-outer ${theme}`}>
       {/* Header */}
       <div className="linear-search-header">
         <h2 className="title">Linear Search Visualizer</h2>
