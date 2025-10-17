@@ -1,0 +1,118 @@
+{
+  "input": {
+    "nodes": ["A", "B", "C", "D"],
+    "edges": [
+      {"source": "A", "target": "B", "weight": 3},
+      {"source": "A", "target": "C", "weight": 6},
+      {"source": "B", "target": "C", "weight": -2},
+      {"source": "B", "target": "D", "weight": 1},
+      {"source": "C", "target": "D", "weight": 4}
+    ]
+  },
+  "meta": {
+    "algorithm": "Floyd Warshall",
+    "description": "All pairs shortest paths",
+    "steps": [
+      {
+        "step_number": 1,
+        "actions": ["🔹 Initialize distance matrix", "🔹 Direct edges and self-loops"],
+        "state": {
+          "iteration": 0,
+          "distance_matrix": {
+            "A": {"A": 0, "B": 3, "C": 6, "D": "∞"},
+            "B": {"A": "∞", "B": 0, "C": -2, "D": 1},
+            "C": {"A": "∞", "B": "∞", "C": 0, "D": 4},
+            "D": {"A": "∞", "B": "∞", "C": "∞", "D": 0}
+          },
+          "via_matrix": {
+            "A": {"A": null, "B": null, "C": null, "D": null},
+            "B": {"A": null, "B": null, "C": null, "D": null},
+            "C": {"A": null, "B": null, "C": null, "D": null},
+            "D": {"A": null, "B": null, "C": null, "D": null}
+          }
+        },
+        "next_suggestion": "k=1"
+      },
+      {
+        "step_number": 2,
+        "actions": ["🔹 k=1: Consider paths through A", "🔹 Check if A→B→C improves A→C"],
+        "state": {
+          "iteration": 1,
+          "distance_matrix": {
+            "A": {"A": 0, "B": 3, "C": 1, "D": "∞"},
+            "B": {"A": "∞", "B": 0, "C": -2, "D": 1},
+            "C": {"A": "∞", "B": "∞", "C": 0, "D": 4},
+            "D": {"A": "∞", "B": "∞", "C": "∞", "D": 0}
+          },
+          "via_matrix": {
+            "A": {"A": null, "B": null, "C": "B", "D": null},
+            "B": {"A": null, "B": null, "C": null, "D": null},
+            "C": {"A": null, "B": null, "C": null, "D": null},
+            "D": {"A": null, "B": null, "C": null, "D": null}
+          }
+        },
+        "next_suggestion": "k=2"
+      },
+      {
+        "step_number": 3,
+        "actions": ["🔹 k=2: Consider paths through B", "🔹 Check if B→C→D improves B→D"],
+        "state": {
+          "iteration": 2,
+          "distance_matrix": {
+            "A": {"A": 0, "B": 3, "C": 1, "D": 2},
+            "B": {"A": "∞", "B": 0, "C": -2, "D": 1},
+            "C": {"A": "∞", "B": "∞", "C": 0, "D": 4},
+            "D": {"A": "∞", "B": "∞", "C": "∞", "D": 0}
+          },
+          "via_matrix": {
+            "A": {"A": null, "B": null, "C": "B", "D": "B"},
+            "B": {"A": null, "B": null, "C": null, "D": null},
+            "C": {"A": null, "B": null, "C": null, "D": null},
+            "D": {"A": null, "B": null, "C": null, "D": null}
+          }
+        },
+        "next_suggestion": "k=3"
+      },
+      {
+        "step_number": 4,
+        "actions": ["🔹 k=3: Consider paths through C", "🔹 No improvements found"],
+        "state": {
+          "iteration": 3,
+          "distance_matrix": {
+            "A": {"A": 0, "B": 3, "C": 1, "D": 2},
+            "B": {"A": "∞", "B": 0, "C": -2, "D": 1},
+            "C": {"A": "∞", "B": "∞", "C": 0, "D": 4},
+            "D": {"A": "∞", "B": "∞", "C": "∞", "D": 0}
+          },
+          "via_matrix": {
+            "A": {"A": null, "B": null, "C": "B", "D": "B"},
+            "B": {"A": null, "B": null, "C": null, "D": null},
+            "C": {"A": null, "B": null, "C": null, "D": null},
+            "D": {"A": null, "B": null, "C": null, "D": null}
+          }
+        },
+        "next_suggestion": "k=4"
+      },
+      {
+        "step_number": 5,
+        "actions": ["🔹 k=4: Consider paths through D", "🔹 No improvements found"],
+        "state": {
+          "iteration": 4,
+          "distance_matrix": {
+            "A": {"A": 0, "B": 3, "C": 1, "D": 2},
+            "B": {"A": "∞", "B": 0, "C": -2, "D": 1},
+            "C": {"A": "∞", "B": "∞", "C": 0, "D": 4},
+            "D": {"A": "∞", "B": "∞", "C": "∞", "D": 0}
+          },
+          "via_matrix": {
+            "A": {"A": null, "B": null, "C": "B", "D": "B"},
+            "B": {"A": null, "B": null, "C": null, "D": null},
+            "C": {"A": null, "B": null, "C": null, "D": null},
+            "D": {"A": null, "B": null, "C": null, "D": null}
+          }
+        },
+        "next_suggestion": "Complete"
+      }
+    ]
+  }
+}

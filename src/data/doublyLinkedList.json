@@ -1,0 +1,101 @@
+{
+  "input": {
+    "nodes": [
+      {"value": 10, "id": "node1"},
+      {"value": 20, "id": "node2"},
+      {"value": 30, "id": "node3"},
+      {"value": 40, "id": "node4"},
+      {"value": 50, "id": "node5"}
+    ],
+    "connections": [
+      {"from": "node1", "to": "node2", "type": "next"},
+      {"from": "node2", "to": "node1", "type": "prev"},
+      {"from": "node2", "to": "node3", "type": "next"},
+      {"from": "node3", "to": "node2", "type": "prev"},
+      {"from": "node3", "to": "node4", "type": "next"},
+      {"from": "node4", "to": "node3", "type": "prev"},
+      {"from": "node4", "to": "node5", "type": "next"},
+      {"from": "node5", "to": "node4", "type": "prev"}
+    ],
+    "head": "node1",
+    "tail": "node5"
+  },
+  "meta": {
+    "algorithm": "Doubly Linked List",
+    "description": "Linear data structure with nodes pointing to both next and previous",
+    "steps": [
+      {
+        "step_number": 1,
+        "actions": ["🔹 Initialize doubly linked list", "🔹 Head and tail pointers set"],
+        "state": {
+          "current": "node1",
+          "visited": ["node1"],
+          "traversal_path": ["node1"],
+          "operation": "initialization",
+          "direction": "forward"
+        },
+        "next_suggestion": "node2"
+      },
+      {
+        "step_number": 2,
+        "actions": ["🔹 Forward traversal to node2", "🔹 Both next and prev pointers available"],
+        "state": {
+          "current": "node2",
+          "visited": ["node1", "node2"],
+          "traversal_path": ["node1", "node2"],
+          "operation": "forward_traversal",
+          "direction": "forward"
+        },
+        "next_suggestion": "node3"
+      },
+      {
+        "step_number": 3,
+        "actions": ["🔹 Continue forward to node3", "🔹 Bidirectional navigation possible"],
+        "state": {
+          "current": "node3",
+          "visited": ["node1", "node2", "node3"],
+          "traversal_path": ["node1", "node2", "node3"],
+          "operation": "forward_traversal",
+          "direction": "forward"
+        },
+        "next_suggestion": "node2"
+      },
+      {
+        "step_number": 4,
+        "actions": ["🔹 Backward traversal to node2", "🔹 Using prev pointer"],
+        "state": {
+          "current": "node2",
+          "visited": ["node1", "node2", "node3"],
+          "traversal_path": ["node1", "node2", "node3", "node2"],
+          "operation": "backward_traversal",
+          "direction": "backward"
+        },
+        "next_suggestion": "node4"
+      },
+      {
+        "step_number": 5,
+        "actions": ["🔹 Forward to node4", "🔹 Demonstrating bidirectional movement"],
+        "state": {
+          "current": "node4",
+          "visited": ["node1", "node2", "node3"],
+          "traversal_path": ["node1", "node2", "node3", "node2", "node4"],
+          "operation": "forward_traversal",
+          "direction": "forward"
+        },
+        "next_suggestion": "node5"
+      },
+      {
+        "step_number": 6,
+        "actions": ["🔹 Reach tail node5", "🔹 Bidirectional traversal complete"],
+        "state": {
+          "current": "node5",
+          "visited": ["node1", "node2", "node3"],
+          "traversal_path": ["node1", "node2", "node3", "node2", "node4", "node5"],
+          "operation": "complete",
+          "direction": "forward"
+        },
+        "next_suggestion": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "input": {
+    "nodes": ["A", "B", "C", "D", "E", "F"],
+    "edges": [
+      ["A", "B"],
+      ["A", "C"],
+      ["B", "D"],
+      ["C", "E"],
+      ["D", "F"],
+      ["E", "F"]
+    ],
+    "start": "A"
+  },
+  "meta": {
+    "algorithm": "BFS",
+    "description": "Breadth-First Search traversal",
+    "steps": [
+      {
+        "step_number": 1,
+        "actions": ["🔹 Start BFS from node A", "🔹 Add A to queue and mark as visited"],
+        "state": {
+          "queue": ["A"],
+          "visited": ["A"],
+          "predecessor": {"A": null},
+          "level": {"A": 0}
+        },
+        "next_suggestion": "A"
+      },
+      {
+        "step_number": 2,
+        "actions": ["🔹 Process A, add neighbors B and C to queue", "🔹 Mark B and C as visited"],
+        "state": {
+          "queue": ["B", "C"],
+          "visited": ["A", "B", "C"],
+          "predecessor": {"A": null, "B": "A", "C": "A"},
+          "level": {"A": 0, "B": 1, "C": 1}
+        },
+        "next_suggestion": "B"
+      },
+      {
+        "step_number": 3,
+        "actions": ["🔹 Process B, add neighbor D to queue", "🔹 Mark D as visited"],
+        "state": {
+          "queue": ["C", "D"],
+          "visited": ["A", "B", "C", "D"],
+          "predecessor": {"A": null, "B": "A", "C": "A", "D": "B"},
+          "level": {"A": 0, "B": 1, "C": 1, "D": 2}
+        },
+        "next_suggestion": "C"
+      },
+      {
+        "step_number": 4,
+        "actions": ["🔹 Process C, add neighbor E to queue", "🔹 Mark E as visited"],
+        "state": {
+          "queue": ["D", "E"],
+          "visited": ["A", "B", "C", "D", "E"],
+          "predecessor": {"A": null, "B": "A", "C": "A", "D": "B", "E": "C"},
+          "level": {"A": 0, "B": 1, "C": 1, "D": 2, "E": 2}
+        },
+        "next_suggestion": "D"
+      },
+      {
+        "step_number": 5,
+        "actions": ["🔹 Process D, add neighbor F to queue", "🔹 Mark F as visited"],
+        "state": {
+          "queue": ["E", "F"],
+          "visited": ["A", "B", "C", "D", "E", "F"],
+          "predecessor": {"A": null, "B": "A", "C": "A", "D": "B", "E": "C", "F": "D"},
+          "level": {"A": 0, "B": 1, "C": 1, "D": 2, "E": 2, "F": 3}
+        },
+        "next_suggestion": "E"
+      },
+      {
+        "step_number": 6,
+        "actions": ["🔹 Process E, F is already visited", "🔹 No new nodes to add"],
+        "state": {
+          "queue": ["F"],
+          "visited": ["A", "B", "C", "D", "E", "F"],
+          "predecessor": {"A": null, "B": "A", "C": "A", "D": "B", "E": "C", "F": "D"},
+          "level": {"A": 0, "B": 1, "C": 1, "D": 2, "E": 2, "F": 3}
+        },
+        "next_suggestion": "F"
+      },
+      {
+        "step_number": 7,
+        "actions": ["🔹 Process F, no unvisited neighbors", "🔹 BFS complete"],
+        "state": {
+          "queue": [],
+          "visited": ["A", "B", "C", "D", "E", "F"],
+          "predecessor": {"A": null, "B": "A", "C": "A", "D": "B", "E": "C", "F": "D"},
+          "level": {"A": 0, "B": 1, "C": 1, "D": 2, "E": 2, "F": 3}
+        },
+        "next_suggestion": null
+      }
+    ]
+  }
+}

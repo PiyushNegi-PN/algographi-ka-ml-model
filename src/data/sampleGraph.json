@@ -1,0 +1,39 @@
+{
+  "type": "graph",
+  "data": {
+    "A": [1, 2],
+    "B": [0, 3],
+    "C": [0, 3],
+    "D": [1, 2]
+  },
+  "description": "Sample graph with 4 nodes in adjacency list format",
+  "steps": [
+    {
+      "step": 1,
+      "description": "Start at node A",
+      "code": "current = A",
+      "explanation": "Initialize traversal from node A"
+    },
+    {
+      "step": 2,
+      "description": "Visit neighbors of A: B and C",
+      "code": "neighbors = [B, C]",
+      "explanation": "Node A is connected to nodes B and C"
+    },
+    {
+      "step": 3,
+      "description": "Move to node B",
+      "code": "current = B",
+      "explanation": "Traverse to node B"
+    },
+    {
+      "step": 4,
+      "description": "Visit neighbors of B: A and D",
+      "code": "neighbors = [A, D]",
+      "explanation": "Node B is connected to nodes A and D"
+    }
+  ],
+  "pseudocode": "BFS(graph, start):\n  queue = [start]\n  visited = {start}\n  while queue:\n    current = queue.pop(0)\n    for neighbor in graph[current]:\n      if neighbor not in visited:\n        visited.add(neighbor)\n        queue.append(neighbor)",
+  "timeComplexity": "O(V + E)",
+  "spaceComplexity": "O(V)"
+}

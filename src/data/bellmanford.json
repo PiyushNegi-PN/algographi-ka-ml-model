@@ -1,0 +1,155 @@
+{
+  "input": {
+    "nodes": ["A", "B", "C", "D", "E"],
+    "edges": [
+      {"source": "A", "target": "B", "weight": -1},
+      {"source": "A", "target": "C", "weight": 4},
+      {"source": "B", "target": "C", "weight": 3},
+      {"source": "B", "target": "D", "weight": 2},
+      {"source": "B", "target": "E", "weight": 2},
+      {"source": "D", "target": "B", "weight": 1},
+      {"source": "D", "target": "C", "weight": 5},
+      {"source": "E", "target": "D", "weight": -3}
+    ],
+    "start": "A"
+  },
+  "meta": {
+    "algorithm": "Bellman Ford",
+    "description": "Shortest path with negative weights",
+    "steps": [
+      {
+        "step_number": 1,
+        "actions": ["🔹 Initialize distances: A=0, others=∞", "🔹 Start iteration 1"],
+        "state": {
+          "iteration": 1,
+          "distances": {"A": 0, "B": "∞", "C": "∞", "D": "∞", "E": "∞"},
+          "predecessor": {"A": null, "B": null, "C": null, "D": null, "E": null},
+          "relaxed_edges": []
+        },
+        "next_suggestion": "A-B"
+      },
+      {
+        "step_number": 2,
+        "actions": ["🔹 Relax edge A→B (weight: -1)", "🔹 Update distance of B"],
+        "state": {
+          "iteration": 1,
+          "distances": {"A": 0, "B": -1, "C": "∞", "D": "∞", "E": "∞"},
+          "predecessor": {"A": null, "B": "A", "C": null, "D": null, "E": null},
+          "relaxed_edges": ["A→B"]
+        },
+        "next_suggestion": "A-C"
+      },
+      {
+        "step_number": 3,
+        "actions": ["🔹 Relax edge A→C (weight: 4)", "🔹 Update distance of C"],
+        "state": {
+          "iteration": 1,
+          "distances": {"A": 0, "B": -1, "C": 4, "D": "∞", "E": "∞"},
+          "predecessor": {"A": null, "B": "A", "C": "A", "D": null, "E": null},
+          "relaxed_edges": ["A→B", "A→C"]
+        },
+        "next_suggestion": "B-C"
+      },
+      {
+        "step_number": 4,
+        "actions": ["🔹 Relax edge B→C (weight: 3)", "🔹 Update distance of C"],
+        "state": {
+          "iteration": 1,
+          "distances": {"A": 0, "B": -1, "C": 2, "D": "∞", "E": "∞"},
+          "predecessor": {"A": null, "B": "A", "C": "B", "D": null, "E": null},
+          "relaxed_edges": ["A→B", "A→C", "B→C"]
+        },
+        "next_suggestion": "B-D"
+      },
+      {
+        "step_number": 5,
+        "actions": ["🔹 Relax edge B→D (weight: 2)", "🔹 Update distance of D"],
+        "state": {
+          "iteration": 1,
+          "distances": {"A": 0, "B": -1, "C": 2, "D": 1, "E": "∞"},
+          "predecessor": {"A": null, "B": "A", "C": "B", "D": "B", "E": null},
+          "relaxed_edges": ["A→B", "A→C", "B→C", "B→D"]
+        },
+        "next_suggestion": "B-E"
+      },
+      {
+        "step_number": 6,
+        "actions": ["🔹 Relax edge B→E (weight: 2)", "🔹 Update distance of E"],
+        "state": {
+          "iteration": 1,
+          "distances": {"A": 0, "B": -1, "C": 2, "D": 1, "E": 1},
+          "predecessor": {"A": null, "B": "A", "C": "B", "D": "B", "E": "B"},
+          "relaxed_edges": ["A→B", "A→C", "B→C", "B→D", "B→E"]
+        },
+        "next_suggestion": "D-B"
+      },
+      {
+        "step_number": 7,
+        "actions": ["🔹 Relax edge D→B (weight: 1)", "🔹 No improvement for B"],
+        "state": {
+          "iteration": 1,
+          "distances": {"A": 0, "B": -1, "C": 2, "D": 1, "E": 1},
+          "predecessor": {"A": null, "B": "A", "C": "B", "D": "B", "E": "B"},
+          "relaxed_edges": ["A→B", "A→C", "B→C", "B→D", "B→E"]
+        },
+        "next_suggestion": "D-C"
+      },
+      {
+        "step_number": 8,
+        "actions": ["🔹 Relax edge D→C (weight: 5)", "🔹 No improvement for C"],
+        "state": {
+          "iteration": 1,
+          "distances": {"A": 0, "B": -1, "C": 2, "D": 1, "E": 1},
+          "predecessor": {"A": null, "B": "A", "C": "B", "D": "B", "E": "B"},
+          "relaxed_edges": ["A→B", "A→C", "B→C", "B→D", "B→E"]
+        },
+        "next_suggestion": "E-D"
+      },
+      {
+        "step_number": 9,
+        "actions": ["🔹 Relax edge E→D (weight: -3)", "🔹 Update distance of D"],
+        "state": {
+          "iteration": 1,
+          "distances": {"A": 0, "B": -1, "C": 2, "D": -2, "E": 1},
+          "predecessor": {"A": null, "B": "A", "C": "B", "D": "E", "E": "B"},
+          "relaxed_edges": ["A→B", "A→C", "B→C", "B→D", "B→E", "E→D"]
+        },
+        "next_suggestion": "Iteration 2"
+      },
+      {
+        "step_number": 10,
+        "actions": ["🔹 Start iteration 2", "🔹 Check for negative cycles"],
+        "state": {
+          "iteration": 2,
+          "distances": {"A": 0, "B": -1, "C": 2, "D": -2, "E": 1},
+          "predecessor": {"A": null, "B": "A", "C": "B", "D": "E", "E": "B"},
+          "relaxed_edges": []
+        },
+        "next_suggestion": "D-B"
+      },
+      {
+        "step_number": 11,
+        "actions": ["🔹 Relax edge D→B (weight: 1)", "🔹 Update distance of B"],
+        "state": {
+          "iteration": 2,
+          "distances": {"A": 0, "B": -1, "C": 2, "D": -2, "E": 1},
+          "predecessor": {"A": null, "B": "A", "C": "B", "D": "E", "E": "B"},
+          "relaxed_edges": []
+        },
+        "next_suggestion": "Complete"
+      },
+      {
+        "step_number": 12,
+        "actions": ["🔹 No more improvements in iteration 2", "🔹 Algorithm complete"],
+        "state": {
+          "iteration": 2,
+          "distances": {"A": 0, "B": -1, "C": 2, "D": -2, "E": 1},
+          "predecessor": {"A": null, "B": "A", "C": "B", "D": "E", "E": "B"},
+          "relaxed_edges": [],
+          "negative_cycle": false
+        },
+        "next_suggestion": null
+      }
+    ]
+  }
+}

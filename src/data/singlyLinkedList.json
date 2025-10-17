@@ -1,0 +1,79 @@
+{
+  "input": {
+    "nodes": [
+      {"value": 1, "id": "node1"},
+      {"value": 2, "id": "node2"},
+      {"value": 3, "id": "node3"},
+      {"value": 4, "id": "node4"},
+      {"value": 5, "id": "node5"}
+    ],
+    "connections": [
+      {"from": "node1", "to": "node2"},
+      {"from": "node2", "to": "node3"},
+      {"from": "node3", "to": "node4"},
+      {"from": "node4", "to": "node5"}
+    ],
+    "head": "node1"
+  },
+  "meta": {
+    "algorithm": "Singly Linked List",
+    "description": "Linear data structure with nodes pointing to next",
+    "steps": [
+      {
+        "step_number": 1,
+        "actions": ["🔹 Initialize singly linked list", "🔹 Head points to first node"],
+        "state": {
+          "current": "node1",
+          "visited": ["node1"],
+          "traversal_path": ["node1"],
+          "operation": "initialization"
+        },
+        "next_suggestion": "node2"
+      },
+      {
+        "step_number": 2,
+        "actions": ["🔹 Move to next node", "🔹 Current pointer at node2"],
+        "state": {
+          "current": "node2",
+          "visited": ["node1", "node2"],
+          "traversal_path": ["node1", "node2"],
+          "operation": "traversal"
+        },
+        "next_suggestion": "node3"
+      },
+      {
+        "step_number": 3,
+        "actions": ["🔹 Continue traversal", "🔹 Current pointer at node3"],
+        "state": {
+          "current": "node3",
+          "visited": ["node1", "node2", "node3"],
+          "traversal_path": ["node1", "node2", "node3"],
+          "operation": "traversal"
+        },
+        "next_suggestion": "node4"
+      },
+      {
+        "step_number": 4,
+        "actions": ["🔹 Move to node4", "🔹 Almost at end of list"],
+        "state": {
+          "current": "node4",
+          "visited": ["node1", "node2", "node3", "node4"],
+          "traversal_path": ["node1", "node2", "node3", "node4"],
+          "operation": "traversal"
+        },
+        "next_suggestion": "node5"
+      },
+      {
+        "step_number": 5,
+        "actions": ["🔹 Reach last node", "🔹 Traversal complete"],
+        "state": {
+          "current": "node5",
+          "visited": ["node1", "node2", "node3", "node4", "node5"],
+          "traversal_path": ["node1", "node2", "node3", "node4", "node5"],
+          "operation": "complete"
+        },
+        "next_suggestion": null
+      }
+    ]
+  }
+}

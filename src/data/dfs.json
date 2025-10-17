@@ -1,0 +1,152 @@
+{
+  "input": {
+    "nodes": ["A", "B", "C", "D", "E", "F"],
+    "edges": [
+      ["A", "B"],
+      ["A", "C"],
+      ["B", "D"],
+      ["C", "E"],
+      ["D", "F"],
+      ["E", "F"]
+    ],
+    "start": "A"
+  },
+  "meta": {
+    "algorithm": "DFS",
+    "description": "Depth-First Search traversal",
+    "steps": [
+      {
+        "step_number": 1,
+        "actions": ["🔹 Start DFS from node A", "🔹 Add A to stack and mark as visited"],
+        "state": {
+          "stack": ["A"],
+          "visited": ["A"],
+          "predecessor": {"A": null},
+          "order": ["A"]
+        },
+        "next_suggestion": "A"
+      },
+      {
+        "step_number": 2,
+        "actions": ["🔹 Process A, explore neighbor B first", "🔹 Add B to stack and mark as visited"],
+        "state": {
+          "stack": ["A", "B"],
+          "visited": ["A", "B"],
+          "predecessor": {"A": null, "B": "A"},
+          "order": ["A", "B"]
+        },
+        "next_suggestion": "B"
+      },
+      {
+        "step_number": 3,
+        "actions": ["🔹 Process B, explore neighbor D", "🔹 Add D to stack and mark as visited"],
+        "state": {
+          "stack": ["A", "B", "D"],
+          "visited": ["A", "B", "D"],
+          "predecessor": {"A": null, "B": "A", "D": "B"},
+          "order": ["A", "B", "D"]
+        },
+        "next_suggestion": "D"
+      },
+      {
+        "step_number": 4,
+        "actions": ["🔹 Process D, explore neighbor F", "🔹 Add F to stack and mark as visited"],
+        "state": {
+          "stack": ["A", "B", "D", "F"],
+          "visited": ["A", "B", "D", "F"],
+          "predecessor": {"A": null, "B": "A", "D": "B", "F": "D"},
+          "order": ["A", "B", "D", "F"]
+        },
+        "next_suggestion": "F"
+      },
+      {
+        "step_number": 5,
+        "actions": ["🔹 Process F, no unvisited neighbors", "🔹 Backtrack to D"],
+        "state": {
+          "stack": ["A", "B", "D"],
+          "visited": ["A", "B", "D", "F"],
+          "predecessor": {"A": null, "B": "A", "D": "B", "F": "D"},
+          "order": ["A", "B", "D", "F"]
+        },
+        "next_suggestion": "D"
+      },
+      {
+        "step_number": 6,
+        "actions": ["🔹 Process D, no more unvisited neighbors", "🔹 Backtrack to B"],
+        "state": {
+          "stack": ["A", "B"],
+          "visited": ["A", "B", "D", "F"],
+          "predecessor": {"A": null, "B": "A", "D": "B", "F": "D"},
+          "order": ["A", "B", "D", "F"]
+        },
+        "next_suggestion": "B"
+      },
+      {
+        "step_number": 7,
+        "actions": ["🔹 Process B, no more unvisited neighbors", "🔹 Backtrack to A"],
+        "state": {
+          "stack": ["A"],
+          "visited": ["A", "B", "D", "F"],
+          "predecessor": {"A": null, "B": "A", "D": "B", "F": "D"},
+          "order": ["A", "B", "D", "F"]
+        },
+        "next_suggestion": "A"
+      },
+      {
+        "step_number": 8,
+        "actions": ["🔹 Process A, explore neighbor C", "🔹 Add C to stack and mark as visited"],
+        "state": {
+          "stack": ["A", "C"],
+          "visited": ["A", "B", "D", "F", "C"],
+          "predecessor": {"A": null, "B": "A", "D": "B", "F": "D", "C": "A"},
+          "order": ["A", "B", "D", "F", "C"]
+        },
+        "next_suggestion": "C"
+      },
+      {
+        "step_number": 9,
+        "actions": ["🔹 Process C, explore neighbor E", "🔹 Add E to stack and mark as visited"],
+        "state": {
+          "stack": ["A", "C", "E"],
+          "visited": ["A", "B", "D", "F", "C", "E"],
+          "predecessor": {"A": null, "B": "A", "D": "B", "F": "D", "C": "A", "E": "C"},
+          "order": ["A", "B", "D", "F", "C", "E"]
+        },
+        "next_suggestion": "E"
+      },
+      {
+        "step_number": 10,
+        "actions": ["🔹 Process E, F is already visited", "🔹 No new nodes to add"],
+        "state": {
+          "stack": ["A", "C"],
+          "visited": ["A", "B", "D", "F", "C", "E"],
+          "predecessor": {"A": null, "B": "A", "D": "B", "F": "D", "C": "A", "E": "C"},
+          "order": ["A", "B", "D", "F", "C", "E"]
+        },
+        "next_suggestion": "C"
+      },
+      {
+        "step_number": 11,
+        "actions": ["🔹 Process C, no more unvisited neighbors", "🔹 Backtrack to A"],
+        "state": {
+          "stack": ["A"],
+          "visited": ["A", "B", "D", "F", "C", "E"],
+          "predecessor": {"A": null, "B": "A", "D": "B", "F": "D", "C": "A", "E": "C"},
+          "order": ["A", "B", "D", "F", "C", "E"]
+        },
+        "next_suggestion": "A"
+      },
+      {
+        "step_number": 12,
+        "actions": ["🔹 Process A, no more unvisited neighbors", "🔹 DFS complete"],
+        "state": {
+          "stack": [],
+          "visited": ["A", "B", "D", "F", "C", "E"],
+          "predecessor": {"A": null, "B": "A", "D": "B", "F": "D", "C": "A", "E": "C"},
+          "order": ["A", "B", "D", "F", "C", "E"]
+        },
+        "next_suggestion": null
+      }
+    ]
+  }
+}

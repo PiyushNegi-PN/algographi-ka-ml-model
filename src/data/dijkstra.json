@@ -1,0 +1,87 @@
+{
+  "input": {
+    "nodes": ["A", "B", "C", "D", "E"],
+    "edges": [
+      {"source": "A", "target": "B", "weight": 4},
+      {"source": "A", "target": "C", "weight": 2},
+      {"source": "B", "target": "C", "weight": 1},
+      {"source": "B", "target": "D", "weight": 5},
+      {"source": "C", "target": "D", "weight": 8},
+      {"source": "C", "target": "E", "weight": 10},
+      {"source": "D", "target": "E", "weight": 2}
+    ],
+    "start": "A"
+  },
+  "meta": {
+    "algorithm": "Dijkstra",
+    "description": "Shortest path from A to all nodes",
+    "steps": [
+      {
+        "step_number": 1,
+        "actions": ["🔹 Initialize distances: A=0, others=∞", "🔹 Add A to priority queue"],
+        "state": {
+          "queue": [{"node": "A", "distance": 0}],
+          "visited": [],
+          "distances": {"A": 0, "B": "∞", "C": "∞", "D": "∞", "E": "∞"},
+          "predecessor": {"A": null, "B": null, "C": null, "D": null, "E": null}
+        },
+        "next_suggestion": "A"
+      },
+      {
+        "step_number": 2,
+        "actions": ["🔹 Process A (distance: 0)", "🔹 Update neighbors B and C"],
+        "state": {
+          "queue": [{"node": "B", "distance": 4}, {"node": "C", "distance": 2}],
+          "visited": ["A"],
+          "distances": {"A": 0, "B": 4, "C": 2, "D": "∞", "E": "∞"},
+          "predecessor": {"A": null, "B": "A", "C": "A", "D": null, "E": null}
+        },
+        "next_suggestion": "C"
+      },
+      {
+        "step_number": 3,
+        "actions": ["🔹 Process C (distance: 2)", "🔹 Update neighbors B, D, and E"],
+        "state": {
+          "queue": [{"node": "B", "distance": 3}, {"node": "D", "distance": 10}, {"node": "E", "distance": 12}],
+          "visited": ["A", "C"],
+          "distances": {"A": 0, "B": 3, "C": 2, "D": 10, "E": 12},
+          "predecessor": {"A": null, "B": "C", "C": "A", "D": "C", "E": "C"}
+        },
+        "next_suggestion": "B"
+      },
+      {
+        "step_number": 4,
+        "actions": ["🔹 Process B (distance: 3)", "🔹 Update neighbor D"],
+        "state": {
+          "queue": [{"node": "D", "distance": 8}, {"node": "E", "distance": 12}],
+          "visited": ["A", "C", "B"],
+          "distances": {"A": 0, "B": 3, "C": 2, "D": 8, "E": 12},
+          "predecessor": {"A": null, "B": "C", "C": "A", "D": "B", "E": "C"}
+        },
+        "next_suggestion": "D"
+      },
+      {
+        "step_number": 5,
+        "actions": ["🔹 Process D (distance: 8)", "🔹 Update neighbor E"],
+        "state": {
+          "queue": [{"node": "E", "distance": 10}],
+          "visited": ["A", "C", "B", "D"],
+          "distances": {"A": 0, "B": 3, "C": 2, "D": 8, "E": 10},
+          "predecessor": {"A": null, "B": "C", "C": "A", "D": "B", "E": "D"}
+        },
+        "next_suggestion": "E"
+      },
+      {
+        "step_number": 6,
+        "actions": ["🔹 Process E (distance: 10)", "🔹 All nodes processed"],
+        "state": {
+          "queue": [],
+          "visited": ["A", "C", "B", "D", "E"],
+          "distances": {"A": 0, "B": 3, "C": 2, "D": 8, "E": 10},
+          "predecessor": {"A": null, "B": "C", "C": "A", "D": "B", "E": "D"}
+        },
+        "next_suggestion": null
+      }
+    ]
+  }
+}

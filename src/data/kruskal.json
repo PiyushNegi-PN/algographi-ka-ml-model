@@ -1,0 +1,135 @@
+{
+  "input": {
+    "nodes": ["A", "B", "C", "D", "E"],
+    "edges": [
+      {"source": "A", "target": "B", "weight": 4},
+      {"source": "A", "target": "C", "weight": 2},
+      {"source": "B", "target": "C", "weight": 1},
+      {"source": "B", "target": "D", "weight": 5},
+      {"source": "C", "target": "D", "weight": 8},
+      {"source": "C", "target": "E", "weight": 10},
+      {"source": "D", "target": "E", "weight": 2}
+    ]
+  },
+  "meta": {
+    "algorithm": "Kruskal",
+    "description": "Minimum Spanning Tree",
+    "steps": [
+      {
+        "step_number": 1,
+        "actions": ["🔹 Sort edges by weight", "🔹 Initialize disjoint sets for each node"],
+        "state": {
+          "sorted_edges": [
+            {"source": "B", "target": "C", "weight": 1},
+            {"source": "A", "target": "C", "weight": 2},
+            {"source": "D", "target": "E", "weight": 2},
+            {"source": "A", "target": "B", "weight": 4},
+            {"source": "B", "target": "D", "weight": 5},
+            {"source": "C", "target": "D", "weight": 8},
+            {"source": "C", "target": "E", "weight": 10}
+          ],
+          "mst_edges": [],
+          "sets": {"A": "A", "B": "B", "C": "C", "D": "D", "E": "E"},
+          "total_weight": 0
+        },
+        "next_suggestion": "B-C"
+      },
+      {
+        "step_number": 2,
+        "actions": ["🔹 Add edge B-C (weight: 1)", "🔹 Merge sets B and C"],
+        "state": {
+          "sorted_edges": [
+            {"source": "A", "target": "C", "weight": 2},
+            {"source": "D", "target": "E", "weight": 2},
+            {"source": "A", "target": "B", "weight": 4},
+            {"source": "B", "target": "D", "weight": 5},
+            {"source": "C", "target": "D", "weight": 8},
+            {"source": "C", "target": "E", "weight": 10}
+          ],
+          "mst_edges": [{"source": "B", "target": "C", "weight": 1}],
+          "sets": {"A": "A", "B": "B", "C": "B", "D": "D", "E": "E"},
+          "total_weight": 1
+        },
+        "next_suggestion": "A-C"
+      },
+      {
+        "step_number": 3,
+        "actions": ["🔹 Add edge A-C (weight: 2)", "🔹 Merge sets A and B"],
+        "state": {
+          "sorted_edges": [
+            {"source": "D", "target": "E", "weight": 2},
+            {"source": "A", "target": "B", "weight": 4},
+            {"source": "B", "target": "D", "weight": 5},
+            {"source": "C", "target": "D", "weight": 8},
+            {"source": "C", "target": "E", "weight": 10}
+          ],
+          "mst_edges": [
+            {"source": "B", "target": "C", "weight": 1},
+            {"source": "A", "target": "C", "weight": 2}
+          ],
+          "sets": {"A": "A", "B": "A", "C": "A", "D": "D", "E": "E"},
+          "total_weight": 3
+        },
+        "next_suggestion": "D-E"
+      },
+      {
+        "step_number": 4,
+        "actions": ["🔹 Add edge D-E (weight: 2)", "🔹 Merge sets D and E"],
+        "state": {
+          "sorted_edges": [
+            {"source": "A", "target": "B", "weight": 4},
+            {"source": "B", "target": "D", "weight": 5},
+            {"source": "C", "target": "D", "weight": 8},
+            {"source": "C", "target": "E", "weight": 10}
+          ],
+          "mst_edges": [
+            {"source": "B", "target": "C", "weight": 1},
+            {"source": "A", "target": "C", "weight": 2},
+            {"source": "D", "target": "E", "weight": 2}
+          ],
+          "sets": {"A": "A", "B": "A", "C": "A", "D": "D", "E": "D"},
+          "total_weight": 5
+        },
+        "next_suggestion": "A-B"
+      },
+      {
+        "step_number": 5,
+        "actions": ["🔹 Skip edge A-B (creates cycle)", "🔹 Try next edge"],
+        "state": {
+          "sorted_edges": [
+            {"source": "B", "target": "D", "weight": 5},
+            {"source": "C", "target": "D", "weight": 8},
+            {"source": "C", "target": "E", "weight": 10}
+          ],
+          "mst_edges": [
+            {"source": "B", "target": "C", "weight": 1},
+            {"source": "A", "target": "C", "weight": 2},
+            {"source": "D", "target": "E", "weight": 2}
+          ],
+          "sets": {"A": "A", "B": "A", "C": "A", "D": "D", "E": "D"},
+          "total_weight": 5
+        },
+        "next_suggestion": "B-D"
+      },
+      {
+        "step_number": 6,
+        "actions": ["🔹 Add edge B-D (weight: 5)", "🔹 Merge sets A and D"],
+        "state": {
+          "sorted_edges": [
+            {"source": "C", "target": "D", "weight": 8},
+            {"source": "C", "target": "E", "weight": 10}
+          ],
+          "mst_edges": [
+            {"source": "B", "target": "C", "weight": 1},
+            {"source": "A", "target": "C", "weight": 2},
+            {"source": "D", "target": "E", "weight": 2},
+            {"source": "B", "target": "D", "weight": 5}
+          ],
+          "sets": {"A": "A", "B": "A", "C": "A", "D": "A", "E": "A"},
+          "total_weight": 10
+        },
+        "next_suggestion": null
+      }
+    ]
+  }
+}

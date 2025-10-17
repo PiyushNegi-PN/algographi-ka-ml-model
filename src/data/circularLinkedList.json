@@ -1,0 +1,97 @@
+{
+  "input": {
+    "nodes": [
+      {"value": 100, "id": "node1"},
+      {"value": 200, "id": "node2"},
+      {"value": 300, "id": "node3"},
+      {"value": 400, "id": "node4"},
+      {"value": 500, "id": "node5"}
+    ],
+    "connections": [
+      {"from": "node1", "to": "node2"},
+      {"from": "node2", "to": "node3"},
+      {"from": "node3", "to": "node4"},
+      {"from": "node4", "to": "node5"},
+      {"from": "node5", "to": "node1"}
+    ],
+    "head": "node1"
+  },
+  "meta": {
+    "algorithm": "Circular Linked List",
+    "description": "Linked list where last node points back to first",
+    "steps": [
+      {
+        "step_number": 1,
+        "actions": ["🔹 Initialize circular linked list", "🔹 Last node points to first"],
+        "state": {
+          "current": "node1",
+          "visited": ["node1"],
+          "traversal_path": ["node1"],
+          "operation": "initialization",
+          "cycle_detected": false
+        },
+        "next_suggestion": "node2"
+      },
+      {
+        "step_number": 2,
+        "actions": ["🔹 Move to node2", "🔹 Normal traversal continues"],
+        "state": {
+          "current": "node2",
+          "visited": ["node1", "node2"],
+          "traversal_path": ["node1", "node2"],
+          "operation": "traversal",
+          "cycle_detected": false
+        },
+        "next_suggestion": "node3"
+      },
+      {
+        "step_number": 3,
+        "actions": ["🔹 Continue to node3", "🔹 Following circular structure"],
+        "state": {
+          "current": "node3",
+          "visited": ["node1", "node2", "node3"],
+          "traversal_path": ["node1", "node2", "node3"],
+          "operation": "traversal",
+          "cycle_detected": false
+        },
+        "next_suggestion": "node4"
+      },
+      {
+        "step_number": 4,
+        "actions": ["🔹 Move to node4", "🔹 Approaching cycle completion"],
+        "state": {
+          "current": "node4",
+          "visited": ["node1", "node2", "node3", "node4"],
+          "traversal_path": ["node1", "node2", "node3", "node4"],
+          "operation": "traversal",
+          "cycle_detected": false
+        },
+        "next_suggestion": "node5"
+      },
+      {
+        "step_number": 5,
+        "actions": ["🔹 Reach node5", "🔹 Last node before cycle"],
+        "state": {
+          "current": "node5",
+          "visited": ["node1", "node2", "node3", "node4", "node5"],
+          "traversal_path": ["node1", "node2", "node3", "node4", "node5"],
+          "operation": "traversal",
+          "cycle_detected": false
+        },
+        "next_suggestion": "node1"
+      },
+      {
+        "step_number": 6,
+        "actions": ["🔹 Cycle detected! Back to node1", "🔹 Circular structure complete"],
+        "state": {
+          "current": "node1",
+          "visited": ["node1", "node2", "node3", "node4", "node5"],
+          "traversal_path": ["node1", "node2", "node3", "node4", "node5", "node1"],
+          "operation": "cycle_detection",
+          "cycle_detected": true
+        },
+        "next_suggestion": null
+      }
+    ]
+  }
+}
