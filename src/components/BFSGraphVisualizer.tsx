@@ -200,7 +200,7 @@ const GraphVisualizer: React.FC = () => {
   const step = steps[stepIndex];
 
   return (
-    <div className={graph-outer ${theme}}>
+    <div className={`graph-outer ${theme}`}>
       {/* Header */}
       <div className="graph-header">
         <h2 className="title">BFS Visualizer</h2>
