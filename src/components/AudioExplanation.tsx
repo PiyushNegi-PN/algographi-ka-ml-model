@@ -149,19 +149,19 @@ const AudioExplanation: React.FC<AudioExplanationProps> = ({ algorithmData }) =>
     }
   }, []);
 
-  const applyVoiceSettings = () => {
+  // Apply selected voice and settings whenever they change and speech is active
+  useEffect(() => {
     if (utteranceRef.current && speechSynthesis.speaking) {
       const voices = getVoices();
       const voice = voices.find(v => v.name === selectedVoice);
-      
-      if (voice && utteranceRef.current) {
+      if (voice) {
         utteranceRef.current.voice = voice;
-        utteranceRef.current.rate = speechRate;
-        utteranceRef.current.pitch = speechPitch;
-        utteranceRef.current.volume = isMuted ? 0 : speechVolume;
       }
+      utteranceRef.current.rate = speechRate;
+      utteranceRef.current.pitch = speechPitch;
+      utteranceRef.current.volume = isMuted ? 0 : speechVolume;
     }
-  };
+  }, [selectedVoice, speechRate, speechPitch, speechVolume, isMuted]);
 
   const renderHighlightedScript = () => {
     if (!audioScript) return null;

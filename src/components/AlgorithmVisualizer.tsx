@@ -35,7 +35,12 @@ const AlgorithmVisualizer: React.FC<AlgorithmVisualizerProps> = ({ data, current
     } else {
       // Fallback: try to detect data structure automatically
       console.log('Data type not recognized, attempting auto-detection:', data);
-      if (data.data && typeof data.data === 'object' && data.data.nodes) {
+      if (
+        data.data &&
+        typeof data.data === 'object' &&
+        !Array.isArray(data.data) &&
+        'nodes' in (data.data as Record<string, unknown>)
+      ) {
         renderLinkedListVisualization(svg, data.data, width, height, margin, currentStep);
       } else if (Array.isArray(data.data)) {
         renderArrayVisualization(svg, data.data as number[], width, height, margin, currentStep);
@@ -342,7 +347,7 @@ const AlgorithmVisualizer: React.FC<AlgorithmVisualizerProps> = ({ data, current
       .style("font-weight", "bold");
 
     // Tooltips with algorithm details (like BFSGraphVisualizer)
-    node.append("title").text((d) => {
+    node.append("title").text((d: any) => {
       return `${d.id}\nVisited: ${d.visited ? "Yes✅" : "No❌"}\nNeighbors: ${d.neighbors ? d.neighbors.join(', ') : 'None'}`;
     });
 
@@ -421,7 +426,7 @@ const AlgorithmVisualizer: React.FC<AlgorithmVisualizerProps> = ({ data, current
       .enter()
       .append("g")
       .attr("class", "linkedlist-node")
-      .attr("transform", d => `translate(${d.x}, ${d.y})`);
+      .attr("transform", (d: any) => `translate(${d.x}, ${d.y})`);
 
     // Draw node rectangles (like array boxes)
     nodeGroups.append("rect")
@@ -627,7 +632,7 @@ const AlgorithmVisualizer: React.FC<AlgorithmVisualizerProps> = ({ data, current
       .text("Array Representation");
 
     // Draw array boxes
-    nodePositions.forEach((node, index) => {
+    nodePositions.forEach((node: any, index: number) => {
       const arrayX = (index + 1) * arraySpacing - 25;
       
       // Array box
@@ -683,7 +688,7 @@ const AlgorithmVisualizer: React.FC<AlgorithmVisualizerProps> = ({ data, current
     });
 
     // Draw connections between linked list and array
-    nodePositions.forEach((node, index) => {
+    nodePositions.forEach((node: any, index: number) => {
       const linkedListY = innerHeight / 2;
       const arrayY = arrayStartY + arrayBoxHeight / 2;
       

@@ -23,8 +23,8 @@ interface Step {
   state: {
     queue: string[];
     visited: string[];
-    predecessor: Record<string, string | null>;
-    level?: Record<string, number>;
+    predecessor?: Record<string, string | null | undefined>;
+    level?: Record<string, number | undefined>;
     order?: string[];
   };
   next_suggestion: string | null;
@@ -38,10 +38,13 @@ const GraphVisualizer: React.FC = () => {
 
   const steps: Step[] = bfsData.meta.steps;
   const nodes: Node[] = bfsData.input.nodes.map((id: string) => ({ id }));
-  const edges: Edge[] = bfsData.input.edges.map(([s, t]: [string, string]) => ({
-    source: s,
-    target: t,
-  }));
+  const edges: Edge[] = (bfsData.input.edges as string[][]).map((pair) => {
+    const [s, t] = pair as [string, string];
+    return {
+      source: s,
+      target: t,
+    };
+  });
 
   // Theme handling
   useEffect(() => {
@@ -82,7 +85,7 @@ const GraphVisualizer: React.FC = () => {
       .force("center", d3.forceCenter(width / 2, height / 2))
       .force("collision", d3.forceCollide(50));
 
-    const link = container
+    container
       .append("g")
       .attr("class", "links")
       .selectAll("line")
@@ -149,7 +152,7 @@ const GraphVisualizer: React.FC = () => {
       );
 
     // Labels
-    const label = container
+    container
       .append("g")
       .attr("class", "labels")
       .selectAll("text")

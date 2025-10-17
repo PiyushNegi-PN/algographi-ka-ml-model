@@ -17,7 +17,7 @@ const StepByStepDisplay: React.FC<StepByStepDisplayProps> = ({
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [playbackSpeed, setPlaybackSpeed] = React.useState(1000);
 
-  const intervalRef = React.useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = React.useRef<ReturnType<typeof setInterval> | null>(null);
 
   const handlePlay = () => {
     if (currentStep >= steps.length - 1) {
